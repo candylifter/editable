@@ -1,9 +1,58 @@
+$pencil-svg: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+$check-svg:  url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+
+$diameter: 56px;
+$interior-diameter: 24px;
+
 .editor-fab {
   position: fixed;
-  width: 4em;
-  height: 4em;
-  bottom: 1em;
-  right: 1em;
-  background: lightblue;
+  width: $diameter;
+  height: $diameter;
+  bottom: 2em;
+  right: 2em;
+  background: #3F51B5;
   border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+
+  &:hover {
+    cursor: pointer;
+
+    &:after {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &:before {
+    content: '';
+    background: $pencil-svg;
+    background-position: center;
+    background-size: contain;
+    width: $interior-diameter;
+    height: $interior-diameter;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:after {
+    content: '';
+    width: $diameter;
+    height: $diameter;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+}
+
+.editor-fab--save {
+  background: #009688;
+
+  &:before {
+    background: $check-svg;
+  }
 }
