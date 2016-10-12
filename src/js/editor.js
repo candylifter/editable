@@ -13,7 +13,10 @@ class Editor {
     let editableElements = document.querySelectorAll('[data-editable]')
     this.state.editableElements = editableElements
 
-    editableElements.map((element) => console.log(element))
+    // editableElements.map((element) => console.log(element))
+    for (var i = 0; i < editableElements.length; i++) {
+      console.log(editableElements[i])
+    }
   }
 }
 

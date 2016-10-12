@@ -19,6 +19,13 @@ var config = {
         presets: ['es2015']
       }
     }]
+  },
+  resolve: {
+    root: __dirname,
+    modulesDirectories: [
+      'node_modules'
+    ],
+    extensions: ['', '.js']
   }
 }
 
