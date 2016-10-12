@@ -8,8 +8,7 @@ export class Editor {
       regions: document.querySelectorAll('[data-editable]'),
       prevContent: undefined,
       nextContent: undefined,
-      isEditing: false,
-      isPosting: false
+      isEditing: false
     }
 
     this.enableEdit = this.enableEdit.bind(this)
@@ -108,6 +107,3 @@ export class Editor {
     this.addFab()
   }
 }
-
-let editor = new Editor()
-editor.init()
