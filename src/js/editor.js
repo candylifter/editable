@@ -1,25 +1,38 @@
-// Get all elements with 'data-editable'
-// Add tooltip which allows toggling between read and edit mode
-// Bind onClick to enable contenteditable on tag
+// Possible solution to onChange event for contenteditable http://jsfiddle.net/MBags/
 
-class Editor {
+import 'styles'
+
+export class Editor {
   constructor () {
     this.state = {
-      editableElements: []
+      regions: document.querySelectorAll('[data-editable]'),
+      isEditing: false,
+      isPosting: false
     }
   }
 
-  init () {
-    let editableElements = document.querySelectorAll('[data-editable]')
-    this.state.editableElements = editableElements
+  enableEdit (element) {
+    element.setAttribute('contenteditable', true)
+  }
 
-    // editableElements.map((element) => console.log(element))
-    for (var i = 0; i < editableElements.length; i++) {
-      console.log(editableElements[i])
-    }
+  disableEdit (element) {
+    element.setAttribute('contenteditable', false)
+  }
+
+  createFab () {
+    let fab = document.createElement('div')
+    fab.classList.add('editor-fab')
+
+    document.body.appendChild(fab)
+  }
+
+  init () {
+    let { regions } = this.state
+
+    this.enableEdit(regions[0])
+    this.createFab()
   }
 }
 
 let editor = new Editor()
-
 editor.init()
