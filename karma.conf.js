@@ -20,6 +20,12 @@ var configuration = {
   webpack: webpackConfig,
   webpackServer: {
     noInfo: true
+  },
+  customLaunchers: {
+    Chrome_travis_ci: {
+      base: 'Chrome',
+      flags: ['--no-sandbox']
+    }
   }
 }
 
