@@ -29,10 +29,9 @@ var configuration = {
   }
 }
 
-if (process.env.TRAVIS) {
-  configuration.browsers = ['Chrome_travis.ci']
-}
-
 module.exports = function (config) {
   config.set(configuration)
+  if (process.env.TRAVIS) {
+    config.browsers = ['Chrome_travis.ci']
+  }
 }
