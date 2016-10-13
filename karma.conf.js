@@ -1,7 +1,7 @@
 var webpackConfig = require('./webpack.config.js')
 
 var configuration = {
-  browsers: ['Chrome'],
+  browsers: ['PhantomJS'],
   singleRun: true,
   frameworks: ['mocha'],
   files: [
@@ -21,17 +21,11 @@ var configuration = {
   webpackServer: {
     noInfo: true
   },
-  customLaunchers: {
-    Chrome_travis_ci: {
-      base: 'Chrome',
-      flags: ['--no-sandbox']
-    }
+  phantomjsLauncher: {
+    exitOnResourceError: true
   }
 }
 
 module.exports = function (config) {
   config.set(configuration)
-  if (process.env.TRAVIS) {
-    config.browsers = ['Chrome_travis.ci']
-  }
 }
