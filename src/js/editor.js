@@ -5,7 +5,7 @@ import 'styles'
 export class Editor {
   constructor () {
     this.state = {
-      regions: document.querySelectorAll('[data-editable]'),
+      regions: undefined,
       prevContent: undefined,
       nextContent: undefined,
       isEditing: false
@@ -14,6 +14,10 @@ export class Editor {
     this.enableEdit = this.enableEdit.bind(this)
     this.disableEdit = this.disableEdit.bind(this)
     this.handleFabClick = this.handleFabClick.bind(this)
+  }
+
+  findRegions () {
+    this.state.regions = document.querySelectorAll('[data-editable]')
   }
 
   handleSave () {
@@ -104,6 +108,10 @@ export class Editor {
   }
 
   init () {
-    this.addFab()
+    this.findRegions()
+
+    if (this.state.regions.length > 0) {
+      this.addFab()
+    }
   }
 }

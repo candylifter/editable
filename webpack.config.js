@@ -33,7 +33,8 @@ var config = {
       'node_modules'
     ],
     alias: {
-      styles: 'src/scss/editor.scss'
+      styles: 'src/scss/editor.scss',
+      editor: 'src/js/editor.js'
     },
     extensions: ['', '.js']
   }
