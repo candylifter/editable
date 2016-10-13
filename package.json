@@ -28,11 +28,13 @@
     "eslint-loader": "^1.5.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
-    "express": "^4.14.0",
     "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
   }
 }
