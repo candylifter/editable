@@ -1,9 +1,11 @@
 // Possible solution to onChange event for contenteditable http://jsfiddle.net/MBags/
-
+import Emitter from 'es6-event-emitter'
 import 'styles'
 
-export class Editor {
+export class Editor extends Emitter {
   constructor () {
+    super()
+
     this.state = {
       regions: undefined,
       prevContent: undefined,
@@ -20,14 +22,39 @@ export class Editor {
     this.state.regions = document.querySelectorAll('[data-editable]')
   }
 
-  handleSave () {
-    let { prevContent, nextContent } = this.state
+  save () {
+    if (this.state.isEditing) {
+      this.disableEdit()
+      this.updateNextContent()
+      let { prevContent, nextContent } = this.state
 
-    let changedContent = nextContent.filter((next, index) => {
-      return next.content !== prevContent[index].content
-    })
+      let changedContent = nextContent.filter((next, index) => {
+        return next.content !== prevContent[index].content
+      })
 
-    console.log(JSON.stringify(changedContent))
+      this.state.prevContent = nextContent
+
+      this.trigger('save', changedContent)
+    } else {
+      throw new Error('Cannot save while not in editing mode')
+    }
+  }
+
+  cancel () {
+    if (this.state.isEditing) {
+      this.disableEdit()
+      this.nextContent = undefined
+
+      let { regions, prevContent } = this.state
+
+      for (var i = 0; i < regions.length; i++) {
+        regions[i].innerText = prevContent[i].content
+      }
+
+      this.trigger('cancel')
+    } else {
+      throw new Error('Cannot cancel while not in editing mode')
+    }
   }
 
   handleFabClick (e) {
@@ -35,9 +62,7 @@ export class Editor {
 
     if (isEditing) {
       e.target.classList.remove('editor-fab--save')
-      this.disableEdit()
-      this.updateNextContent()
-      this.handleSave()
+      this.save()
     } else {
       e.target.classList.add('editor-fab--save')
       this.enableEdit()
