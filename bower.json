@@ -1,0 +1,18 @@
+{
+  "name": "editable",
+  "description": "wysiwyg editor",
+  "main": "./dist/editor.global.min.js",
+  "authors": [
+    "Martynas Kadisa"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/candylifter/editable",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "sandbox"
+  ]
+}
