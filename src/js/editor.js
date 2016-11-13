@@ -2,7 +2,7 @@
 import Emitter from 'es6-event-emitter'
 import 'styles'
 
-export class Editor extends Emitter {
+class Editor extends Emitter {
   constructor () {
     super()
 
@@ -140,3 +140,5 @@ export class Editor extends Emitter {
     }
   }
 }
+
+exports = module.exports = Editor

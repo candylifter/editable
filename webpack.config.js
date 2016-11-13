@@ -2,14 +2,15 @@ var path = require('path')
 
 var config = {
   devtool: 'eval-source-map',
-  entry: {
-    'editor.global': path.join(__dirname, 'src/js/global.js'),
-    'editor.module': path.join(__dirname, 'src/js/module.js')
-  },
+  entry: [
+    'src/js/editor.js'
+  ],
   output: {
     path: path.join(__dirname, '/dist/'),
-    filename: '[name].js',
-    publicPath: '/'
+    filename: 'editor.js',
+    publicPath: '/',
+    libraryTarget: 'umd',
+    library: 'Editor'
   },
   module: {
     loaders: [{

@@ -1,7 +1,7 @@
 import expect from 'expect'
 import $ from 'jquery'
 
-import { Editor } from 'editor'
+import Editor from 'editor'
 
 describe('Editor', () => {
   beforeEach(() => {

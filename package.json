@@ -2,10 +2,10 @@
   "name": "editor",
   "version": "0.0.0",
   "description": "editor",
-  "main": "index.js",
+  "main": "src/js/editor.js",
   "scripts": {
     "test": "karma start",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
+    "build": "rimraf dist && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "mocha": "^3.1.2",
     "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
+    "rimraf": "^2.5.4",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
