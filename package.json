@@ -1,7 +1,7 @@
 {
-  "name": "editor",
-  "version": "0.0.0",
-  "description": "editor",
+  "name": "editor-js",
+  "version": "0.1.0",
+  "description": "WYSIWYG editor",
   "main": "src/js/editor.js",
   "scripts": {
     "test": "karma start",
@@ -9,21 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/candylifter/editable.git"
+    "url": "git+https://github.com/candylifter/editor-js.git"
   },
-  "author": "Martynas Kadisa",
+  "author": "Martynas Kadiša",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/candylifter/editable/issues"
+    "url": "https://github.com/candylifter/editor-js/issues"
   },
-  "homepage": "https://github.com/candylifter/editable#readme",
+  "homepage": "https://github.com/candylifter/editor-js#readme",
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
     "css-loader": "^0.25.0",
-    "es6-event-emitter": "^1.5.2",
     "eslint": "^3.7.1",
     "eslint-config-standard": "^6.2.0",
     "eslint-loader": "^1.5.0",
@@ -47,6 +46,7 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
+    "es6-event-emitter": "^1.5.2",
     "toastr": "^2.1.2"
   }
 }
