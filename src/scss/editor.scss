@@ -1,6 +1,15 @@
 @import "fab";
+$photo-camera-svg: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.2"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
 
-[contenteditable] {
+
+h1[contenteditable],
+h2[contenteditable],
+h3[contenteditable],
+h4[contenteditable],
+h5[contenteditable],
+h6[contenteditable],
+p[contenteditable],
+span[contenteditable] {
   border: 1px dashed black;
   transition: .1s ease-out;
 
@@ -13,4 +22,61 @@
     background: rgba(114, 173, 191, .1);
     outline: none;
   }
+}
+
+div[data-editable] {
+  display: inline-block;
+}
+
+.editor-image {
+  position: relative;
+}
+
+.editor-image__edit {
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  background: #000;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border: none;
+
+  &:hover {
+    &:after {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &:before {
+    content: '';
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    background: $photo-camera-svg;
+    background-position: center;
+    background-size: contain;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:after {
+    content: '';
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  }
+
 }

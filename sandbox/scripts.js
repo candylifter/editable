@@ -1,5 +1,6 @@
+/* global Editor */
+
 var editor = new Editor()
-editor.init()
 
 editor.on('save', function (data) {
   console.log('save event.')

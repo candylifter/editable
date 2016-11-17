@@ -5,6 +5,8 @@ $diameter: 56px;
 $interior-diameter: 24px;
 
 .editor-fab {
+  border: none;
+  outline: none;
   position: fixed;
   width: $diameter;
   height: $diameter;
