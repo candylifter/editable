@@ -1,9 +1,9 @@
 import expect from 'expect'
 import $ from 'jquery'
 
-import Editor from 'editor'
+import Editable from 'editable'
 
-describe('Editor', () => {
+describe('Editable', () => {
 
   let dummyDOM = `
     <h1>Heading 1</h1>
@@ -17,15 +17,15 @@ describe('Editor', () => {
   })
 
   it('should exist', () => {
-    expect(Editor).toExist()
+    expect(Editable).toExist()
   })
 
   describe('initialization', () => {
     it('should find elements with \'data-editable\' attribute', () => {
-      let editor = new Editor()
+      let editable = new Editable()
 
       let expectedRegions = document.querySelectorAll('[data-editable]')
-      let actualRegions = editor.regions
+      let actualRegions = editable.regions
 
       expect(actualRegions).toEqual(expectedRegions)
     })
@@ -33,63 +33,38 @@ describe('Editor', () => {
 
   // describe('addFab', () => {
   //   it('should add fab to DOM', () => {
-  //     let editor = new Editor()
-  //     editor.addFab()
+  //     let editable = new Editable()
+  //     editable.addFab()
   //
-  //     let $fab = $('.editor-fab')
+  //     let $fab = $('.editable-fab')
   //     expect($fab).toExist()
   //   })
   // })
 
   describe('enableEdit', () => {
-    it('should emit \'enableEdit\' event', function (done) {
-      this.timeout(1000) // timeout with an error if done() isn't called within one second
-
-      let editor = new Editor()
-
-      editor.on('enableEdit', () => {
-        done()
-      })
-
-      editor.enableEdit()
-    })
-
     it('should add \'contenteditable\' attribute to regions', () => {
-      let editor = new Editor()
-      editor.enableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
 
-      for (var i = 0; i < editor.regions.length; i++) {
-        let hasAttribute = !!$(editor.regions[i]).attr('contenteditable')
+      for (var i = 0; i < editable.regions.length; i++) {
+        let hasAttribute = !!$(editable.regions[i]).attr('contenteditable')
         expect(hasAttribute).toBe(true)
       }
     })
 
     it('should set isEditing to true', () => {
-      let editor = new Editor()
-      editor.enableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
 
-      expect(editor.isEditing).toBe(true)
+      expect(editable.isEditing).toBe(true)
     })
   })
 
   describe('disableEdit', () => {
-    it('should emit \'disableEdit\' event', function (done) {
-      this.timeout(1000) // timeout with an error if done() isn't called within one second
-
-      let editor = new Editor()
-      editor.enableEdit()
-
-      editor.on('disableEdit', () => {
-        done()
-      })
-
-      editor.disableEdit()
-    })
-
     it('should remove \'contenteditable\' attribute from regions', () => {
-      let editor = new Editor()
-      editor.enableEdit()
-      editor.disableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
+      editable.disableEdit()
 
       let editableElements = document.querySelectorAll('[contenteditable]')
 
@@ -97,31 +72,18 @@ describe('Editor', () => {
     })
 
     it('should set isEditing to false', () => {
-      let editor = new Editor()
-      editor.enableEdit()
-      editor.disableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
+      editable.disableEdit()
 
-      expect(editor.isEditing).toBe(false)
+      expect(editable.isEditing).toBe(false)
     })
   })
 
   describe('save', () => {
-    it('should emit \'save\' event', function (done) {
-       this.timeout(1000) // timeout with an error if done() isn't called within one second
-
-       let editor = new Editor()
-       editor.enableEdit()
-
-       editor.on('save', () => {
-         done()
-       })
-
-       editor.save()
-    })
-
     it('should return changed objects on save event', () => {
-      let editor = new Editor()
-      editor.enableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
 
       $('h2').text('Test')
 
@@ -130,35 +92,20 @@ describe('Editor', () => {
         content: 'Test'
       }]
 
-      editor.on('save', (contentList) => {
-        expect(contentList).toEqual(expectedList)
-      })
+      let contentList = editable.save()
 
-      editor.save()
+      expect(contentList).toEqual(expectedList)
     })
   })
 
   describe('cancel', () => {
-    it('should emit \'cancel\' event', function (done) {
-      this.timeout(1000) // timeout with an error if done() isn't called within one second
-
-      let editor = new Editor()
-      editor.enableEdit()
-
-      editor.on('cancel', () => {
-        done()
-      })
-
-      editor.cancel()
-    })
-
     it('should revert content changes on cancel', () => {
-      let editor = new Editor()
-      editor.enableEdit()
+      let editable = new Editable()
+      editable.enableEdit()
 
       $('h2').text('Test')
 
-      editor.cancel()
+      editable.cancel()
 
       let expectedContent = 'Heading 2'
       let actualContent = $('h2').text()

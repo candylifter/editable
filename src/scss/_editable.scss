@@ -1,0 +1,21 @@
+h1[contenteditable],
+h2[contenteditable],
+h3[contenteditable],
+h4[contenteditable],
+h5[contenteditable],
+h6[contenteditable],
+p[contenteditable],
+span[contenteditable] {
+  border: 1px dashed black;
+  transition: .1s ease-out;
+
+  &:hover {
+    background: rgba(114, 173, 191, .05);
+  }
+
+  &:active,
+  &:focus {
+    background: rgba(114, 173, 191, .1);
+    outline: none;
+  }
+}

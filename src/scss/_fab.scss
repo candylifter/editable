@@ -1,11 +1,13 @@
-$pencil-svg: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-$check-svg:  url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
-$clear-svg:  url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+$pencil-svg:   url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+$check-svg:    url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+$clear-svg:    url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+$settings-svg: url('data:image/svg+xml;utf8,<svg fill="#ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>');
 
 $diameter: 56px;
 $interior-diameter: 24px;
 
 .editor-fab {
+  z-index: 10000;
   border: none;
   outline: none;
   position: fixed;
@@ -13,7 +15,6 @@ $interior-diameter: 24px;
   height: $diameter;
   bottom: 2em;
   right: 2em;
-  background: #3F51B5;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
@@ -28,7 +29,6 @@ $interior-diameter: 24px;
 
   &:before {
     content: '';
-    background: $pencil-svg;
     background-position: center;
     background-size: contain;
     width: $interior-diameter;
@@ -52,6 +52,15 @@ $interior-diameter: 24px;
   }
 }
 
+.editor-fab--edit {
+  background: #3F51B5;
+
+  &:before {
+    background: $pencil-svg;
+  }
+
+}
+
 .editor-fab--save {
   background: #009688;
 
@@ -66,5 +75,33 @@ $interior-diameter: 24px;
 
   &:before {
     background: $clear-svg;
+  }
+}
+
+.editor-fab--busy {
+  background: #ccc;
+
+  &:before {
+    background: $settings-svg;
+    transform-origin: 0 0;
+    animation: spin .75s linear infinite;
+  }
+
+  &:hover {
+    cursor: not-allowed;
+
+    &:after {
+      background: none;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  100% {
+    transform: rotate(60deg) translate(-50%, -50%);
   }
 }

@@ -1,60 +1,124 @@
-// Possible solution to onChange event for contenteditable http://jsfiddle.net/MBags/
 import Emitter from 'es6-event-emitter'
+import toastr from 'toastr'
 
-import { default as contentHelper } from './helpers/contentHelper'
+toastr.options.positionClass = 'toast-bottom-center'
+
+import Editable from 'editable'
+
+import 'styles'
 
 class Editor extends Emitter {
   constructor () {
     super()
 
-    this.regions = contentHelper.findRegions()
-    this.content = {
-      prev: [],
-      next: []
+    this.editable = new Editable()
+    this.FABContainer = (() => {
+      let container = document.createElement('div')
+      container.classList.add('editor')
+      document.body.appendChild(container)
+      return container
+    })()
+
+    this.FABEdit = (() => {
+      let fab = document.createElement('button')
+      fab.classList.add('editor-fab')
+      fab.classList.add('editor-fab--edit')
+      fab.addEventListener('click', (e) => {
+        this.edit()
+      })
+      return fab
+    })()
+
+    this.FABSave = (() => {
+      let fab = document.createElement('button')
+      fab.classList.add('editor-fab')
+      fab.classList.add('editor-fab--save')
+      fab.addEventListener('click', (e) => {
+        this.save()
+      })
+      return fab
+    })()
+
+    this.FABCancel = (() => {
+      let fab = document.createElement('button')
+      fab.classList.add('editor-fab')
+      fab.classList.add('editor-fab--cancel')
+      fab.addEventListener('click', (e) => {
+        this.cancel()
+      })
+      return fab
+    })()
+
+    this.FABBusy = (() => {
+      let fab = document.createElement('button')
+      fab.classList.add('editor-fab')
+      fab.classList.add('editor-fab--busy')
+      return fab
+    })()
+
+    this.isEditing = false
+
+    this.on('busy', () => {
+      while (this.FABContainer.firstChild) {
+        this.FABContainer.removeChild(this.FABContainer.firstChild)
+      }
+
+      this.FABContainer.appendChild(this.FABBusy)
+    })
+
+    this.on('ready', () => {
+      while (this.FABContainer.firstChild) {
+        this.FABContainer.removeChild(this.FABContainer.firstChild)
+      }
+
+      this.FABContainer.appendChild(this.FABEdit)
+    })
+
+    this.on('success', (message = 'Successfully saved new content') => {
+      toastr.success(message)
+    })
+
+    this.on('error', (message = 'Error occured while saving new content, please try again later') => {
+      toastr.error(message)
+    })
+
+    this.trigger('ready')
+  }
+
+  edit () {
+    while (this.FABContainer.firstChild) {
+      this.FABContainer.removeChild(this.FABContainer.firstChild)
     }
-    this.isEditing = false
-  }
 
-  enableEdit () {
-    if (this.isEditing) throw new Error('Editing is already enabled.')
-
-    contentHelper.addContentEditable(this.regions)
-    contentHelper.addListeners(this.regions)
-    this.content.prev = contentHelper.getContent(this.regions)
     this.isEditing = true
-    this.trigger('enableEdit')
-  }
+    this.editable.enableEdit()
 
-  disableEdit () {
-    if (!this.isEditing) throw new Error('Editing is already disabled.')
+    this.FABContainer.appendChild(this.FABSave)
+    this.FABContainer.appendChild(this.FABCancel)
 
-    contentHelper.removeContentEditable(this.regions)
-    contentHelper.removeListeners(this.regions)
-    this.content.next = contentHelper.getContent(this.regions)
-    this.isEditing = false
-    this.trigger('disableEdit')
+    this.trigger('edit')
   }
 
   save () {
-    if (!this.isEditing) throw new Error('Cannot save while not editing.')
-    this.disableEdit()
+    while (this.FABContainer.firstChild) {
+      this.FABContainer.removeChild(this.FABContainer.firstChild)
+    }
 
-    let changedContent = this.content.next.filter((next, index) => {
-      return next.content !== this.content.prev[index].content
-    })
+    let changedContent = this.editable.save()
 
-    this.trigger('save', changedContent) // Should also expect callback?
+    this.FABContainer.appendChild(this.FABEdit)
+    this.trigger('save', changedContent)
   }
 
   cancel () {
-    if (!this.isEditing) throw new Error('Cannot cancel while not editing')
-    this.disableEdit()
-
-    for (var i = 0; i < this.regions.length; i++) {
-      this.regions[i].innerText = this.content.prev[i].content
+    while (this.FABContainer.firstChild) {
+      this.FABContainer.removeChild(this.FABContainer.firstChild)
     }
 
-    this.trigger('cancel') // Should also expect callback?
+    this.editable.cancel()
+
+    this.FABContainer.appendChild(this.FABEdit)
+    this.trigger('cancel')
   }
 }
 

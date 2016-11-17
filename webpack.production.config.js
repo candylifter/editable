@@ -9,7 +9,9 @@ webpackConfig.devtool = 'source-map'
 webpackConfig.output = {
   path: path.join(__dirname, '/dist/'),
   filename: 'editor.min.js',
-  publicPath: '/'
+  publicPath: '/',
+  libraryTarget: 'var',
+  library: 'Editor'
 }
 
 webpackConfig.plugins = [

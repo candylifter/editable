@@ -1,14 +1,17 @@
-/* global Editor, UI */
+/* global Editor */
 
-// var editor = new Editor()
-//
-// editor.on('save', function (data) {
-//   console.log('save event.')
-//   console.log(data)
-// })
-//
-// editor.on('cancel', function () {
-//   console.log('cancel event')
-// })
+var editor = new Editor()
 
-var ui = new UI()
+editor.on('save', function (data) {
+  editor.trigger('busy')
+
+  setTimeout(function () {
+    editor.trigger('ready')
+    editor.trigger('success')
+    console.log(data)
+  }, 300)
+})
+
+editor.on('cancel', function () {
+  console.log('cancel event')
+})

@@ -3,15 +3,16 @@ var path = require('path')
 var config = {
   devtool: 'eval-source-map',
   entry: [
-    'src/js/editor.js',
-    'src/js/ui.js'
+    'node_modules/toastr/build/toastr.min.css',
+    'src/js/editable.js',
+    'src/js/editor.js'
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: 'editor.js',
     publicPath: '/',
-    libraryTarget: 'umd',
-    library: 'UI'
+    libraryTarget: 'var',
+    library: 'Editor'
   },
   module: {
     loaders: [{
@@ -35,7 +36,8 @@ var config = {
       'node_modules'
     ],
     alias: {
-      styles: 'src/scss/editor.scss',
+      styles: 'src/scss/main.scss',
+      editable: 'src/js/editable.js',
       editor: 'src/js/editor.js'
     },
     extensions: ['', '.js']
