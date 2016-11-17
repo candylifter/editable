@@ -3,14 +3,15 @@ var path = require('path')
 var config = {
   devtool: 'eval-source-map',
   entry: [
-    'src/js/editor.js'
+    'src/js/editor.js',
+    'src/js/ui.js'
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: 'editor.js',
     publicPath: '/',
     libraryTarget: 'umd',
-    library: 'Editor'
+    library: 'UI'
   },
   module: {
     loaders: [{
