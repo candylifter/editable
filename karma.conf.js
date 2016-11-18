@@ -1,11 +1,12 @@
 var webpackConfig = require('./webpack.config.js')
+console.log(`ENV: ${process.env.NODE_ENV}`)
 
 var configuration = {
   browsers: ['PhantomJS'],
-  singleRun: true,
+  singleRun: process.env.NODE_ENV !== 'development',
+  autoWatch: process.env.NODE_ENV === 'development',
   frameworks: ['mocha'],
   files: [
-    'node_modules/jquery/dist/jquery.min.js',
     'src/tests/**/*.test.js'
   ],
   preprocessors: {

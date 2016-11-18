@@ -1,12 +1,8 @@
 // Possible solution to onChange event for contenteditable http://jsfiddle.net/MBags/
-import Emitter from 'es6-event-emitter'
-
 import { default as contentHelper } from './helpers/contentHelper'
 
 class Editable {
   constructor () {
-    // super()
-
     this.regions = contentHelper.findRegions()
     this.content = {
       prev: [],
@@ -22,7 +18,6 @@ class Editable {
     contentHelper.addListeners(this.regions)
     this.content.prev = contentHelper.getContent(this.regions)
     this.isEditing = true
-    // this.trigger('enableEdit')
   }
 
   disableEdit () {
@@ -32,7 +27,6 @@ class Editable {
     contentHelper.removeListeners(this.regions)
     this.content.next = contentHelper.getContent(this.regions)
     this.isEditing = false
-    // this.trigger('disableEdit')
   }
 
   save () {
@@ -44,7 +38,6 @@ class Editable {
     })
 
     return changedContent
-    // this.trigger('save', changedContent) // Should also expect callback?
   }
 
   cancel () {
@@ -54,8 +47,6 @@ class Editable {
     for (var i = 0; i < this.regions.length; i++) {
       this.regions[i].innerText = this.content.prev[i].content
     }
-
-    // this.trigger('cancel') // Should also expect callback?
   }
 }
 

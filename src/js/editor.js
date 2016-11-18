@@ -1,11 +1,16 @@
 import Emitter from 'es6-event-emitter'
 import toastr from 'toastr'
 
+import Editable from 'editable'
+import 'styles'
+
 toastr.options.positionClass = 'toast-bottom-center'
 
-import Editable from 'editable'
-
-import 'styles'
+const createFAB = () => {
+  let fab = document.createElement('button')
+  fab.classList.add('editor-fab')
+  return fab
+}
 
 class Editor extends Emitter {
   constructor () {
@@ -20,38 +25,28 @@ class Editor extends Emitter {
     })()
 
     this.FABEdit = (() => {
-      let fab = document.createElement('button')
-      fab.classList.add('editor-fab')
+      let fab = createFAB()
       fab.classList.add('editor-fab--edit')
-      fab.addEventListener('click', (e) => {
-        this.edit()
-      })
+      fab.addEventListener('click', (e) => this.edit())
       return fab
     })()
 
     this.FABSave = (() => {
-      let fab = document.createElement('button')
-      fab.classList.add('editor-fab')
+      let fab = createFAB()
       fab.classList.add('editor-fab--save')
-      fab.addEventListener('click', (e) => {
-        this.save()
-      })
+      fab.addEventListener('click', (e) => this.save())
       return fab
     })()
 
     this.FABCancel = (() => {
-      let fab = document.createElement('button')
-      fab.classList.add('editor-fab')
+      let fab = createFAB()
       fab.classList.add('editor-fab--cancel')
-      fab.addEventListener('click', (e) => {
-        this.cancel()
-      })
+      fab.addEventListener('click', (e) => this.cancel())
       return fab
     })()
 
     this.FABBusy = (() => {
-      let fab = document.createElement('button')
-      fab.classList.add('editor-fab')
+      let fab = createFAB()
       fab.classList.add('editor-fab--busy')
       return fab
     })()
@@ -86,6 +81,8 @@ class Editor extends Emitter {
   }
 
   edit () {
+    if (this.isEditing) throw new Error('Already in editing mode')
+
     while (this.FABContainer.firstChild) {
       this.FABContainer.removeChild(this.FABContainer.firstChild)
     }
@@ -100,22 +97,28 @@ class Editor extends Emitter {
   }
 
   save () {
+    if (!this.isEditing) throw new Error('Cannot save while not in editing mode')
+
     while (this.FABContainer.firstChild) {
       this.FABContainer.removeChild(this.FABContainer.firstChild)
     }
 
     let changedContent = this.editable.save()
+    this.isEditing = false
 
     this.FABContainer.appendChild(this.FABEdit)
     this.trigger('save', changedContent)
   }
 
   cancel () {
+    if (!this.isEditing) throw new Error('Cannot cancel while not in editing mode')
+
     while (this.FABContainer.firstChild) {
       this.FABContainer.removeChild(this.FABContainer.firstChild)
     }
 
     this.editable.cancel()
+    this.isEditing = false
 
     this.FABContainer.appendChild(this.FABEdit)
     this.trigger('cancel')

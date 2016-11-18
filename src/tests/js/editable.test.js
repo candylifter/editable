@@ -31,16 +31,6 @@ describe('Editable', () => {
     })
   })
 
-  // describe('addFab', () => {
-  //   it('should add fab to DOM', () => {
-  //     let editable = new Editable()
-  //     editable.addFab()
-  //
-  //     let $fab = $('.editable-fab')
-  //     expect($fab).toExist()
-  //   })
-  // })
-
   describe('enableEdit', () => {
     it('should add \'contenteditable\' attribute to regions', () => {
       let editable = new Editable()
